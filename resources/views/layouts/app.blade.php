@@ -58,6 +58,16 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @foreach (Auth::user()->companies as $company)
+                                    <a href="{{ route('companies.show', $company) }}" class="dropdown-item">
+                                        {{ $company->name }}
+                                    </a>
+                                    @endforeach
+                                    <div class="dropdown-divider"></div>
+                                    <a href="{{ route('companies.create') }}" class="dropdown-item">
+                                        Create Company
+                                    </a>
+                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

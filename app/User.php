@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Vacancy::class);
     }
+
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class);
+    }
 }
