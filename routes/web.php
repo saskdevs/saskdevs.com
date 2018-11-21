@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::redirect('/home', '/');
+
 Route::get('/', 'VacancyController@index')->name('home');
 Route::resource('vacancies', 'VacancyController')->except(['index']);
 Route::resource('companies', 'CompanyController');

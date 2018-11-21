@@ -10,7 +10,7 @@
                     <div class="form-group row">
                         <label for="title" class="col-sm-2 col-form-label">Title</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="title" name="title">
+                            <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
                             @if($errors->has('title'))
                                 <div class="invalid-feedback d-block">
                                     {{ $errors->get('title')[0] }}
@@ -21,19 +21,29 @@
                     <div class="form-group row">
                         <label for="description" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
-                            <textarea type="text" class="form-control" id="description" name="description"></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="10">{{ old('description') }}</textarea>
+                            @if($errors->has('description'))
+                                <div class="invalid-feedback d-block">
+                                    {{ $errors->get('description')[0] }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                     @if (Auth::user()->companies->count() > 0)
                     <div class="form-group row">
-                        <label for="company" class="col-sm-2 col-form-label">Company</label>
+                        <label for="company_id" class="col-sm-2 col-form-label">Company</label>
                         <div class="col-sm-10">
-                            <select type="text" class="form-control" id="company" name="description">
+                            <select type="text" class="form-control" id="company_id" name="company_id">
                                 @foreach (Auth::user()->companies as $company)
-                                    <option value="{{ $company->id }}"
-                                            selected="{{ $loop === 0 ? 'selected' : '' }}">{{ $company->name }}</option>
+                                    <option value=""></option>
+                                    <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected="selected"' : ''}}>{{ $company->name }}</option>
                                 @endforeach
                             </select>
+                            @if($errors->has('company_id'))
+                                <div class="invalid-feedback d-block">
+                                    {{ $errors->get('company_id')[0] }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                     @endif
