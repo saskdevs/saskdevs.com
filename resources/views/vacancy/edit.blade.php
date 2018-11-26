@@ -25,10 +25,25 @@
                             <textarea type="text" class="form-control" id="description" name="description" rows="10">{{ old('description') ?: $vacancy->description}}</textarea>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-2 col-form-label">Email Applications To:</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') ?: $vacancy->email }}" placeholder="who should applications go to?" aria-describedby="emailHelpBlock">
+                            <small id="emailHelpBlock" class="form-text">(Public)</small>
+                            @if($errors->has('email'))
+                                <div class="invalid-feedback d-block">
+                                    {{ $errors->get('email')[0] }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer clearfix">
                     <input type="submit" class="btn btn-danger" value="Delete" name="delete">
-                    <input type="submit" class="btn btn-primary float-right" value="Submit" name="submit">
+                    <div class="float-right">
+                        <a href="{{ route('vacancies.show', $vacancy) }}" class="btn btn-default">Cancel</a>
+                        <input type="submit" class="btn btn-primary float-right" value="Submit" name="submit">
+                    </div>
                 </div>
             </form>
         </div>

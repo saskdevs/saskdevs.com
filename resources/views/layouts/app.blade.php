@@ -35,11 +35,15 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-                    @auth
-                        <li class="nav-item">
-                            <a href="{{ route('vacancies.create') }}" class="nav-link">Post a Job</a>
-                        </li>
-                    @endauth
+                    <li class="nav-item">
+                        <a href="{{ route('companies.index') }}" class="nav-link">Companies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('home') }}" class="nav-link">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Events</a>
+                    </li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

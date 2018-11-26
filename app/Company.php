@@ -10,7 +10,7 @@ class Company extends Model
     use SoftDeletes;
 
     protected $fillable = [
-      'name', 'website', 'user',
+      'name', 'website', 'user', 'photo',
     ];
 
     public function setUserAttribute($user)

@@ -13,7 +13,8 @@ class Vacancy extends Model
         'title',
         'description',
         'user',
-        'company'
+        'company',
+        'email',
     ];
 
     public function user()

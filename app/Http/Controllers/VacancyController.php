@@ -3,43 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Vacancy;
+use App\Company;
 use Illuminate\Http\Request;
 
 class VacancyController extends Controller
 {
+    private $request;
+
+    public function __construct(Request $request)
+    {
+        $this->middleware('auth')->except(['show', 'index']);
+        $this->request = $request;
+    }
+
     public function index()
     {
         return view('home', ['vacancies' => Vacancy::latest()->get()]);
     }
 
-    public function create(Request $request)
+    public function create()
     {
-        if ($request->user()->companies->count() === 0) {
+        if ($this->request->user()->cant('create', Vacancy::class)) {
             return redirect()->route('companies.create')->with('danger', 'You need to be on a company before you can create a job posting.');
         }
 
         return view('vacancy.create');
     }
 
-    public function store(Request $request)
+    public function store()
     {
-        $data = $request->validate([
+        if ($this->request->user()->cant('create', Vacancy::class)) {
+            return redirect()->route('companies.create')->with('danger', 'You need to be on a company before you can create a job posting.');
+        }
+
+        $data = $this->request->validate([
             'title' => 'required',
-            'description' => 'required',
+            'description' => 'required|max:20000',
+            'email' => 'required|email',
             'company_id' => 'required|exists:companies,id',
         ]);
 
-        $user = $request->user();
+        $user = $this->request->user();
 
-        $company = $user->companies->firstWhere('id', $data['company_id']);
-
-        if (!$company) {
+        if (!$user->isOnCompany($data['company_id'])) {
             return redirect()->back()->withInput()->withErrors(['company_id' => 'You do not belong to that company']);
         }
 
         $vacancy = Vacancy::create(array_merge($data, [
             'user' => $user,
-            'company' => $company,
+            'company' => Company::find($data['company_id']),
         ]));
 
         return redirect()->route('vacancies.show', [$vacancy]);
@@ -52,18 +64,27 @@ class VacancyController extends Controller
 
     public function edit(Vacancy $vacancy)
     {
+        if ($this->request->user()->cant('update', $vacancy)) {
+            return abort(401);
+        }
+
         return view('vacancy.edit', ['vacancy' => $vacancy]);
     }
 
-    public function update(Vacancy $vacancy, Request $request)
+    public function update(Vacancy $vacancy)
     {
+        if ($this->request->user()->cant('update', $vacancy)) {
+            return abort(401);
+        }
+
         if (isset($request->delete)) {
             return $this->delete($vacancy);
         }
 
-        $data = $request->validate([
+        $data = $this->request->validate([
             'title' => 'required',
-            'description' => 'required',
+            'email' => 'required|email',
+            'description' => 'required|max:20000',
         ]);
 
         $vacancy->fill($data)->save();
@@ -73,6 +94,10 @@ class VacancyController extends Controller
 
     public function delete(Vacancy $vacancy)
     {
+        if ($this->request->user()->cant('delete', $vacancy)) {
+            return abort(401);
+        }
+
         $company = $vacancy->company;
 
         $vacancy->delete();

@@ -37,4 +37,13 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Company::class);
     }
+
+    public function isOnCompany($companyId)
+    {
+        if ($companyId instanceof Company) {
+            $companyId = $companyId->id;
+        }
+
+        return $this->companies()->get()->map->id->contains($companyId);
+    }
 }
