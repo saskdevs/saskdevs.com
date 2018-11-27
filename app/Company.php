@@ -10,8 +10,13 @@ class Company extends Model
     use SoftDeletes;
 
     protected $fillable = [
-      'name', 'website', 'user', 'photo',
+      'name', 'website', 'user', 'photo', 'slug', 'description',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function setUserAttribute($user)
     {

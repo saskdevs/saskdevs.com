@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['pageTitle' => 'Tech Companies in Sask'])
 
 @section('content')
     <div class="container">
@@ -18,7 +18,7 @@
                                 <div class="col-sm-10">
                                     <h4 class="mb-1">{{ $company->name }}</h4>
                                     <p class="text-muted mb-1">Saskatoon</p>
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam asperiores beatae consequuntur deleniti ea eligendi, ex excepturi fugit harum inventore modi obcaecati reiciendis saepe voluptatem. Doloremque ex explicabo odio?</p>
+                                    <p class="mb-0">{{ substr($company->description, 0, 140) }}</p>
                                 </div>
                             </div>
                         </a>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['pageTitle' => 'Edit Job Posting'])
 
 @section('content')
     <div class="container">

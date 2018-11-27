@@ -24,11 +24,23 @@ class CompanyController extends Controller
             'name' => 'required',
             'website' => 'nullable|url',
             'photo' => 'nullable|image|max:2000',
+            'description' => 'nullable|max:10000',
         ]);
+
+        $slug = str_slug($data['name']);
+        $counter = 1;
+
+        while (Company::whereSlug($slug)->exists()) {
+            $slug = str_slug($data['name']) . '-' . $counter;
+        }
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('company-photos');
+        }
 
         $company = Company::create(array_merge($data, [
             'user' => $request->user(),
-            'photo' => $request->file('photo')->store('company-photos'),
+            'slug' => $slug,
         ]));
 
         $company->users()->attach($request->user());
@@ -51,6 +63,7 @@ class CompanyController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'website' => 'nullable|url',
+            'description' => 'nullable|max:10000',
         ]);
 
         $company->fill($data)->save();

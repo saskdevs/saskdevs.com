@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['pageTitle' => 'Create a Company'])
 
 @section('content')
     <div class="container">
@@ -20,6 +20,17 @@
                                 @if($errors->has('name'))
                                     <div class="invalid-feedback d-block">
                                         {{ $errors->get('name')[0] }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="description" class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="description" name="description" rows="10">{{ old('description') }}</textarea>
+                                @if($errors->has('description'))
+                                    <div class="invalid-feedback d-block">
+                                        {{ $errors->get('description')[0] }}
                                     </div>
                                 @endif
                             </div>
