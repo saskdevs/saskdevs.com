@@ -42,7 +42,7 @@
                         <a href="{{ route('home') }}" class="nav-link">Jobs</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Events</a>
+                        <a href="{{ route('events.index') }}" class="nav-link">Events</a>
                     </li>
                 </ul>
 

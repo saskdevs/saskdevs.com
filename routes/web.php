@@ -22,3 +22,4 @@ Route::redirect('/home', '/');
 Route::get('/', 'VacancyController@index')->name('home');
 Route::resource('vacancies', 'VacancyController')->except(['index']);
 Route::resource('companies', 'CompanyController');
+Route::resource('events', 'EventController')->only(['index']);
