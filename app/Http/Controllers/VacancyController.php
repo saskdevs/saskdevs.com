@@ -24,7 +24,7 @@ class VacancyController extends Controller
     public function create()
     {
         if ($this->request->user()->cant('create', Vacancy::class)) {
-            return redirect()->route('companies.create')->with('danger', 'You need to be on a company before you can create a job posting.');
+            return redirect()->route('home')->with('danger', 'You need to be on a company before you can create a job posting.');
         }
 
         return view('vacancy.create');
@@ -33,7 +33,7 @@ class VacancyController extends Controller
     public function store()
     {
         if ($this->request->user()->cant('create', Vacancy::class)) {
-            return redirect()->route('companies.create')->with('danger', 'You need to be on a company before you can create a job posting.');
+            return redirect()->route('home')->with('danger', 'You need to be on a company before you can create a job posting.');
         }
 
         $data = $this->request->validate([

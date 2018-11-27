@@ -46,4 +46,9 @@ class User extends Authenticatable
 
         return $this->companies()->get()->map->id->contains($companyId);
     }
+
+    public function isAdmin()
+    {
+        return $this->attributes['email'] === 'oz.neher@gmail.com';
+    }
 }

@@ -3,11 +3,6 @@
 @section('content')
     <div class="container">
         <div class="w-75 m-auto">
-            @if (session('danger'))
-                <div class="alert alert-danger">
-                    {{ session('danger') }}
-                </div>
-            @endif
             <div class="card border-light shadow-sm">
                 <div class="card-header">Create Company</div>
                 <form action="{{ url()->route('companies.store') }}" method="post" enctype="multipart/form-data">

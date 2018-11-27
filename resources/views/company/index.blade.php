@@ -17,7 +17,9 @@
                                 </div>
                                 <div class="col-sm-10">
                                     <h4 class="mb-1">{{ $company->name }}</h4>
-                                    <p class="text-muted mb-1">Saskatoon</p>
+                                    @if ($company->location)
+                                    <p class="text-muted mb-1">{{ $company->location->name }}</p>
+                                    @endif
                                     <p class="mb-0">{{ substr($company->description, 0, 140) }}</p>
                                 </div>
                             </div>

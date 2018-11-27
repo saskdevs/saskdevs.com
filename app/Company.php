@@ -10,7 +10,7 @@ class Company extends Model
     use SoftDeletes;
 
     protected $fillable = [
-      'name', 'website', 'user', 'photo', 'slug', 'description',
+      'name', 'website', 'user', 'photo', 'slug', 'description', 'location',
     ];
 
     public function getRouteKeyName()
@@ -21,6 +21,11 @@ class Company extends Model
     public function setUserAttribute($user)
     {
         $this->attributes['user_id'] = $user->id;
+    }
+
+    public function setLocationAttribute($location)
+    {
+        $this->attributes['location_id'] = $location->id;
     }
 
     public function user()
@@ -36,5 +41,10 @@ class Company extends Model
     public function vacancies()
     {
         return $this->hasMany(Vacancy::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
     }
 }

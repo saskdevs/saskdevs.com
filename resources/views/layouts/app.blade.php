@@ -59,9 +59,11 @@
                             @endif
                         </li>
                     @else
+                        @if (Auth::user()->companies->count() > 0)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('vacancies.create') }}">Post a Job</a>
                         </li>
+                        @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -77,10 +79,14 @@
                                     @endforeach
                                     <div class="dropdown-divider"></div>
                                 @endif
+                                @if (Auth::user()->isAdmin())
                                 <a href="{{ route('companies.create') }}" class="dropdown-item">
                                     Create Company
                                 </a>
+                                @endif
+                                @if (Auth::user()->companies->count() > 0 || Auth::user()->isAdmin())
                                 <div class="dropdown-divider"></div>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -100,6 +106,12 @@
     </nav>
 
     <main class="py-4">
+        @if (session('danger'))
+            <div class="alert alert-primary mx-auto w-25">
+                {{ session('danger') }}
+            </div>
+        @endif
+
         @yield('content')
     </main>
 </div>

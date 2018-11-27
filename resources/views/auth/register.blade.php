@@ -61,6 +61,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="invitation" class="col-md-4 col-form-label text-md-right">{{ __('Invitation') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="invitation" type="text" class="form-control{{ $errors->has('invitation') ? ' is-invalid' : '' }}" name="invitation" required>
+
+                                @if ($errors->has('invitation'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('invitation') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
