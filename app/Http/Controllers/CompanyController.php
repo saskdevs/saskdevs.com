@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CompanyController extends Controller
 {
@@ -68,7 +69,9 @@ class CompanyController extends Controller
             'slug' => $slug,
         ]));
 
-        $company->users()->attach($request->user());
+        $company->invitiation()->create([
+            'token' => Str::random(16),
+        ]);
 
         return redirect()->route('companies.show', [$company]);
     }

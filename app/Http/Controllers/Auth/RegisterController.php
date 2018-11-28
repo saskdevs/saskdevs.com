@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Invitation;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -52,7 +53,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'invitation' => ['required', 'string', 'exists:invitations,token'],
+            'invitation' => ['required', 'string'],
         ]);
     }
 
@@ -64,10 +65,25 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        // TODO: Remove. Only for first login so i can setup my account
+        if ($data['email'] === 'oz.neher@gmail.com') {
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
+
+        $invitation = Invitation::whereToken($data['invitation'])->firstOrFail();
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $invitation->company->users()->attach($user);
+
+        return $user;
     }
 }

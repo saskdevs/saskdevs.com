@@ -47,4 +47,9 @@ class Company extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
+    public function invitation()
+    {
+        return $this->hasOne(Invitation::class);
+    }
 }
