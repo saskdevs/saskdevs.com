@@ -69,7 +69,7 @@ class CompanyController extends Controller
             'slug' => $slug,
         ]));
 
-        $company->invitiation()->create([
+        $company->invitation()->create([
             'token' => Str::random(16),
         ]);
 

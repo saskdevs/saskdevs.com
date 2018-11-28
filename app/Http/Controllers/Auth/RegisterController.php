@@ -84,6 +84,8 @@ class RegisterController extends Controller
 
         $invitation->company->users()->attach($user);
 
+        $invitation->delete();
+
         return $user;
     }
 }
