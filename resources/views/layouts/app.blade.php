@@ -10,14 +10,14 @@
     <title>@if(isset($pageTitle)){{ $pageTitle }} | @endif{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ config('app.url') }}/js/app.js" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito|Open+Sans|Open+Sans+Condensed:700" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ config('app.url') }}/css/app.css" rel="stylesheet">
 </head>
 <body>
 <div id="app">
