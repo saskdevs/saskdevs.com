@@ -15,7 +15,7 @@
 
             <div class="col-sm-4 offset-sm-1">
                 @include('company._card', ['company' => $company])
-                @if (Auth::check() && Auth::user()->isOnCompany($company))
+                @if (Auth::check() && (Auth::user()->isOnCompany($company) || Auth::user()->isAdmin()))
                     <a href="{{ route('companies.edit', $company) }}" class="btn btn-primary btn-block">Edit</a>
                 @endif
             </div>

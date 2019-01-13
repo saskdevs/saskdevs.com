@@ -22,7 +22,7 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $companies = Company::all()->sortBy('name')->all();
+        $companies = Company::all()->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE);
         return view('company.index', ['companies' => $companies]);
     }
 

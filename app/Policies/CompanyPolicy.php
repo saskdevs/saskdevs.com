@@ -22,6 +22,6 @@ class CompanyPolicy
 
     public function update(User $user, Company $company)
     {
-        return $user->isOnCompany($company);
+        return $user->isAdmin() || $user->isOnCompany($company);
     }
 }
