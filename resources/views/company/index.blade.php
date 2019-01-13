@@ -3,28 +3,16 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <h2 class="mb-4">All Companies</h2>
-                <div class="list-group list-group-flush">
-                    @foreach ($companies as $company)
-                        <a href="{{ route('companies.show', $company) }}"
-                           class="list-group-item-action list-group-item p-4 pl-0">
-                            <div class="row">
-                                <div class="col-sm-2 d-none d-sm-block">
-                                    @if (!empty($company->photo))
-                                        <img src="{{ Storage::url($company->photo) }}" alt="{{ $company->name }} logo" class="img-thumbnail">
-                                    @endif
-                                </div>
-                                <div class="col-sm-10">
-                                    <h4 class="mb-1">{{ $company->name }}</h4>
-                                    @if ($company->location)
-                                    <p class="text-muted mb-1">{{ $company->location->name }}</p>
-                                    @endif
-                                    <p class="mb-0">{{ substr($company->description, 0, 140) }}</p>
-                                </div>
-                            </div>
-                        </a>
-                    @endforeach
+                @include('company._listing', ['companies' => $companies])
+            </div>
+            <div class="col-md-4 offset-md-1">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Don't see your company here?</h5>
+                        <p class="card-text">Email us at <a href="mailto:community@saskdevs.com">community@saskdevs.com</a> to arrange creating a company profile.</p>
+                    </div>
                 </div>
             </div>
         </div>

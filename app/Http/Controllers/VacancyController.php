@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Vacancy;
 use App\Company;
+use App\Vacancy;
 use Illuminate\Http\Request;
 
 class VacancyController extends Controller
@@ -18,7 +18,7 @@ class VacancyController extends Controller
 
     public function index()
     {
-        return view('home', ['vacancies' => Vacancy::latest()->get()]);
+        return view('vacancy.index', ['vacancies' => Vacancy::latest()->get()]);
     }
 
     public function create()

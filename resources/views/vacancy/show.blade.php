@@ -15,7 +15,7 @@
                 <a href="mailto:{{ $vacancy->email }}" class="btn btn-primary btn-block mb-4">Apply</a>
 
                 @if(Auth::check() && Auth::user()->companies->contains($vacancy->company->id))
-                <a href="{{ route('vacancies.edit', $vacancy) }}" class="btn btn-primary btn-block">Edit</a>
+                <a href="{{ route('vacancies.edit', $vacancy) }}" class="btn btn-secondary btn-block">Edit</a>
                 @endif
             </div>
         </div>

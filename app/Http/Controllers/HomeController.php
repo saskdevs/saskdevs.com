@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Company;
+use App\Vacancy;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home', [
+            'vacancies' => Vacancy::latest()->take(3)->get(),
+            'companies' => Company::latest()->take(3)->get(),
+        ]);
     }
 }
